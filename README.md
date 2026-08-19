@@ -40,6 +40,24 @@ describe commands the installed app does not have, and the agent would fail
 without knowing why. Treat this repository as the readable source — the app's
 copy is the one that must match its own CLI.
 
+## Adding a skill
+
+One directory under `skills/`, holding one `SKILL.md`:
+
+```
+skills/<name>/SKILL.md
+---
+name: <name>              # must match the directory
+description: <when to use this, written to trigger on the user's own words>
+---
+<the instructions>
+```
+
+`node scripts/check-skills.mjs` enforces that shape, and CI runs it on every
+push and pull request. The description is the only part always in an agent's
+context and the only thing deciding whether the body is ever read, so write it
+with the phrases a user would actually type.
+
 ## Contributing
 
 Issues and pull requests are welcome. Direct pushes are restricted to the
