@@ -48,6 +48,7 @@ One directory under `skills/`, holding one `SKILL.md`:
 skills/<name>/SKILL.md
 ---
 name: <name>              # must match the directory
+version: <x.y.z>          # bump it whenever the text changes
 description: <when to use this, written to trigger on the user's own words>
 ---
 <the instructions>
@@ -57,6 +58,11 @@ description: <when to use this, written to trigger on the user's own words>
 push and pull request. The description is the only part always in an agent's
 context and the only thing deciding whether the body is ever read, so write it
 with the phrases a user would actually type.
+
+CI also fails a change to a `SKILL.md` that leaves its `version` alone
+(`scripts/check-version-bump.mjs`). Codey stamps the version into the copy it
+installs, and a version that does not move says the installed copy matches
+something it does not.
 
 ## Contributing
 

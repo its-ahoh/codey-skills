@@ -34,6 +34,12 @@ for (const dir of dirs) {
       .map(m => [m[1], m[2].trim()]),
   )
   if (fields.name !== dir) problems.push(`${dir}: frontmatter name is "${fields.name ?? '(missing)'}"`)
+  // Codey stamps the installed copy with this version, and that stamp is how
+  // anyone answers "which text is this user running" later. It only means
+  // something if it moves whenever the text does — see check-version-bump.mjs.
+  if (!/^\d+\.\d+\.\d+$/.test(fields.version ?? '')) {
+    problems.push(`${dir}: frontmatter version is "${fields.version ?? '(missing)'}", expected x.y.z`)
+  }
   // The description is the only part always in an agent's context, and the
   // only thing deciding whether the skill is ever read. An empty or vague one
   // is a skill that never fires.
