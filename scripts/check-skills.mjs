@@ -1,11 +1,10 @@
-// Every entry in this repository is one directory under skills/ or plugins/
-// holding a SKILL.md whose frontmatter agents read. Codey installs these by
+// Every entry in this repository is one directory under plugins/ holding a SKILL.md whose frontmatter agents read. Codey installs these by
 // name, so a name that disagrees with its directory installs to one place and
 // announces itself as another.
 import { readFileSync, readdirSync, existsSync } from 'node:fs'
 import { join } from 'node:path'
 
-const ROOTS = ['plugins', 'skills']
+const ROOTS = ['plugins']
 const problems = []
 const checked = []
 
@@ -59,8 +58,7 @@ for (const root of ROOTS) {
     // is a skill that never fires.
     if (!fields.description) problems.push(`${label}: frontmatter has no description`)
     else if (fields.description.length < 40) problems.push(`${label}: description is too short to trigger on (${fields.description.length} chars)`)
-    // Some skills are deliberately one instruction long (pstack's `bro`), so the
-    // floor only rejects a body that is effectively empty.
+    // The floor only rejects a body that is effectively empty.
     if (text.slice(match[0].length).trim().length < 100) problems.push(`${label}: body is too short to be instructions`)
   }
 }
