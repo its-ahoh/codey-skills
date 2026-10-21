@@ -19,28 +19,17 @@ works inside Codey, which hands the agent the tool it describes.
 | [`browser`](plugins/browser/SKILL.md) | Drive the user-visible Codey Browser: open, read, screenshot and click through pages, including pages behind the user's existing logins. |
 | [`chrome-companion`](plugins/chrome-companion/SKILL.md) | Drive the user's real Google Chrome through the Codey Chrome Companion extension, using their existing windows, tabs and logins. |
 
-## Skills
+## Skill packs
 
-General engineering skills that work in any agent, with or without Codey.
+Codey does not publish general skills or skill packs. Import the ones you
+want from their own source: in the Codey Mac app, **Tools → Skills → Codey →
+Add → Skill pack**, then paste a git URL, a GitHub folder link or a local
+folder. For pstack that is
+`https://github.com/cursor/plugins/tree/main/pstack`. Every skill in the pack
+goes into `~/.codey/skills/<name>/`, where every agent finds it.
 
-### pstack
-
-The 47 skills in [`skills/`](skills/) are
-[pstack](https://github.com/cursor/plugins/tree/main/pstack) by
-[Lauren Tan (poteto)](https://x.com/poteto), MIT licensed — see
-[`licenses/pstack-LICENSE`](licenses/pstack-LICENSE). Imported from
-`cursor/plugins@2eb7ed46` (2026-09-30). Start with
-[`poteto-mode`](skills/poteto-mode/SKILL.md); it picks the other skills as a
-task needs them.
-
-Changes from upstream: `poteto-mode` and `make-bot-ui` had display names in
-their `name` field, now set to their directory names so installs and
-announcements agree. Nothing else was edited.
-
-pstack was written for Cursor. Its multi-model playbooks name Cursor models
-(`grok-4.7-xhigh-fast` and others) and Cursor's `Task` tool, and `setup-pstack`
-and `make-bot-ui` configure Cursor-only features. The principle skills work in
-any agent; the delegation steps need their model names mapped first.
+pstack used to be copied into this repository. It was removed so it is read
+from its upstream, and so the one copy users install is the author's own.
 
 ## Installing
 
@@ -54,7 +43,6 @@ By hand, without the app:
 ```bash
 git clone https://github.com/its-ahoh/codey-skills.git
 cp -R codey-skills/plugins/browser ~/.codey/skills/
-cp -R codey-skills/skills/poteto-mode ~/.codey/skills/
 ```
 
 ## A skill is not the capability
@@ -71,11 +59,11 @@ have: describe a new command only once the app that implements it has shipped.
 
 ## Adding a skill
 
-One directory under `plugins/` (it documents a Codey capability) or `skills/`
-(it works anywhere), holding a `SKILL.md`:
+One directory under `plugins/`, documenting a Codey capability, holding a
+`SKILL.md`:
 
 ```
-<plugins|skills>/<name>/SKILL.md
+plugins/<name>/SKILL.md
 ---
 name: <name>              # must match the directory
 description: <when to use this, written to trigger on the user's own words>
